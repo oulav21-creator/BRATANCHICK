@@ -2,6 +2,8 @@ import whisper
 import sounddevice as sd
 from scipy.io.wavfile import write
 
+model = whisper.load_model("small", device="cuda")
+
 def record_audio(filename, duration=5, fs=41000):
     print("Recording...")
     recording = sd.rec(int(duration * fs), samplerate=fs, channels=2)
@@ -9,7 +11,6 @@ def record_audio(filename, duration=5, fs=41000):
     write(filename, fs, recording)
     print("Recording complete.")
 
-model = whisper.load_model("small", device="cuda")
 
 def transcribe(filename):
     audio = whisper.load_audio(filename)
