@@ -9,9 +9,13 @@ text = voice.transcribe("audio.wav")
 response = brain.ask(text)
 try:
     data = json.loads(response)
+    print(data)
     if data["action"] == "open_website":
         actions.open_website(data["url"])
+    if data["action"] == "open_app":
+        actions.open_app(data["app"])
     
-except:
-        print(response)
+except Exception as e:
+    print(response)
+    print(e)
 
